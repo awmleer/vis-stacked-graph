@@ -8,7 +8,9 @@ textarea.value = `
 ]
 `;
 
+
 let x = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500];
+let current = null;
 
 const colors = [
   '#00aa00',
@@ -26,6 +28,7 @@ ctx.scale(1, -1);
 
 
 function draw(data) {
+  ctx.clearRect(0, -canvas.height/2, canvas.width, canvas.height/2);
   data.forEach((points, index) => {
     ctx.beginPath();
     ctx.moveTo(0, canvas.height/2 + 1);
@@ -43,6 +46,7 @@ function draw(data) {
     ctx.fill();
     ctx.stroke();
   })
+  current = data;
 }
 
 function reduceWiggle(data) {
@@ -67,32 +71,43 @@ function normalize(data) {
     normalizedData[i+1] = [];
     points.forEach((point, j) => {
       normalizedData[i+1][j] = normalizedData[i][j] + point;
-    })
-  })
-  // let max = 0, min = 0;
-  // normalizedData.forEach((points) => {
-  //   points.forEach((point) => {
-  //     if (point > max) max = point;
-  //     if (point < min) min = point;
-  //   })
-  // })
-  // const scale = canvas.height / (max - min);
-  // const translate = -(max + min);
-  // console.log(scale, translate);
-  // normalizedData.forEach((points) => {
-  //   points.forEach((point, j) => {
-  //     points[j] = (point + translate) * scale;
-  //   })
-  // })
+    });
+  });
   return normalizedData;
 }
 
 
-function apply() {
-  // console.log(textarea.value);
-  const data = JSON.parse(textarea.value);
-  const normalizedData = normalize(data);
-  draw(normalizedData);
+function animateDraw(to) {
+  const v = [];
+  current.forEach((points, i) => {
+    v[i] = [];
+    points.forEach((point, j) => {
+      v[i][j] = (to[i][j] - current[i][j]) / 100;
+    });
+  });
+  let count = 0;
+  function timeoutWork() {
+    current.forEach((points, i) => {
+      points.forEach((point, j) => {
+        current[i][j] += v[i][j];
+      });
+    });
+    draw(current);
+    count++;
+    if (count < 100) {
+      setTimeout(timeoutWork, 10);
+    }
+  }
+  setTimeout(timeoutWork, 10);
 }
 
-apply();
+
+function apply() {
+  const data = JSON.parse(textarea.value);
+  const normalizedData = normalize(data);
+  animateDraw(normalizedData);
+}
+
+const data = JSON.parse(textarea.value);
+const normalizedData = normalize(data);
+draw(normalizedData);
