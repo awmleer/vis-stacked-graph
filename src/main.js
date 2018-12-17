@@ -13,10 +13,10 @@ let x = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500];
 let current = null;
 
 const colors = [
-  '#00aa00',
-  '#aa0000',
-  '#0000aa',
-  '#333333',
+  '#ffd2d2',
+  '#e9d2ff',
+  '#cdffc5',
+  '#fff4b2',
   '#ffffff',
 ]
 
