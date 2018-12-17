@@ -6,16 +6,26 @@
   <style type="text/css">
     body {
       padding-top: 50px;
+      text-align: center;
     }
     #stacked-graph {
       display: block;
       margin: auto;
+    }
+    #textarea-data {
+      width: 500px;
+      height: 300px;
     }
   </style>
 </head>
 <body>
   <div id="main">
     <canvas id="stacked-graph" width="500" height="300"></canvas>
+  </div>
+  <div id="control">
+    <textarea id="textarea-data"></textarea>
+    <br>
+    <button id="button-apply" onclick="apply()">Apply</button>
   </div>
   <script type="text/javascript" src="main.js"></script>
 </body>
