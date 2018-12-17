@@ -1,8 +1,8 @@
 let data = [
-  [100, 30, 20, 50, 20, 60, 40, 10, 0, 20],
-  [30, 20, 10, 40, 0, 10, 20, 50, 30, 80],
-  [0, 0, 20, 30, 20, 10, 0, 30, 80, 10],
-  [50, 50, 20, 30, 80, 20, 10, 50, 0, 100],
+  [100, 30, 20, 50, 20, 60, 40, 10, 0, 20, 30],
+  [30, 20, 10, 40, 0, 10, 20, 50, 30, 80, 60],
+  [0, 0, 20, 30, 20, 10, 0, 30, 80, 10, 0],
+  [50, 50, 20, 30, 80, 20, 10, 50, 0, 100, 50],
 ];
 
 let x = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500];
@@ -67,6 +67,21 @@ function normalize(data) {
       normalizedData[i+1][j] = normalizedData[i][j] + point;
     })
   })
+  // let max = 0, min = 0;
+  // normalizedData.forEach((points) => {
+  //   points.forEach((point) => {
+  //     if (point > max) max = point;
+  //     if (point < min) min = point;
+  //   })
+  // })
+  // const scale = canvas.height / (max - min);
+  // const translate = -(max + min);
+  // console.log(scale, translate);
+  // normalizedData.forEach((points) => {
+  //   points.forEach((point, j) => {
+  //     points[j] = (point + translate) * scale;
+  //   })
+  // })
   return normalizedData;
 }
 
